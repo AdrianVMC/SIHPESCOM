@@ -30,7 +30,7 @@
         </a>
 
         <!-- Botón de cerrar sesión -->
-        <a href="#" class="btn btn-outline-light">
+        <a href="{{ route('main') }}" class="btn btn-outline-light">
             <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
         </a>
     </div>
