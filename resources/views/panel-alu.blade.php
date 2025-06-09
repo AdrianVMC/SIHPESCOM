@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIHP</title>
+    <title>SIHP - Alumno</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         .full-height {
             min-height: calc(100vh - 56px);
@@ -24,19 +26,26 @@
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-primary">
     <div class="container d-flex justify-content-between align-items-center">
-        <!-- Logo o título clickeable -->
+
+        <!-- Logo o título -->
         <a href="{{ route('panel-alu') }}" class="navbar-brand m-0">
             SIHP - Alumno
         </a>
 
         <!-- Botón de cerrar sesión -->
-        <a href="{{ route('main') }}" class="btn btn-outline-light">
-            <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
-        </a>
+        @auth
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="btn btn-outline-light d-flex align-items-center">
+                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                </button>
+            </form>
+        @endauth
+
     </div>
 </nav>
 
-<!-- Contenido -->
+<!-- Contenido principal -->
 <div class="container d-flex flex-column justify-content-center align-items-center full-height text-center">
     <h2 class="mb-5">Búsqueda</h2>
 

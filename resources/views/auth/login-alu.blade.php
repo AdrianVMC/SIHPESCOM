@@ -21,22 +21,43 @@
 
         <h4 class="text-center mb-4 mt-2">Inicio de sesión - Alumno</h4>
 
-        <form  method="GET" action="{{ route('panel-alu') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div class="mb-3">
                 <label for="boleta" class="form-label">Número de boleta</label>
-                <input type="text" name="boleta" class="form-control" id="boleta" maxlength="10" pattern="\d{10}" required>
+                <input
+                    type="text"
+                    name="boleta"
+                    class="form-control"
+                    id="boleta"
+                    maxlength="10"
+                    pattern="\d{10}"
+                    required
+                    value="{{ old('boleta') }}"
+                >
+                @error('boleta')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
             <div class="mb-3 position-relative">
                 <label for="password" class="form-label">Contraseña</label>
                 <div class="input-group">
-                    <input type="password" name="password" class="form-control" id="password" required>
+                    <input
+                        type="password"
+                        name="contrasena"
+                        class="form-control"
+                        id="password"
+                        required
+                    >
                     <button type="button" class="btn btn-outline-secondary" id="togglePassword" tabindex="-1">
                         <i class="bi bi-eye" id="toggleIcon"></i>
                     </button>
                 </div>
+                @error('contrasena')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Ingresar</button>

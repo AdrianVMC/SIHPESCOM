@@ -36,11 +36,19 @@ return [
     */
 
     'guards' => [
+        // guard por defecto
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // tu nuevo guard
+        'alumno' => [
+            'driver' => 'session',
+            'provider' => 'alumnos',
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -63,6 +71,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        'alumnos' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Alumno::class,
         ],
 
         // 'users' => [
