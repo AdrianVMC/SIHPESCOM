@@ -52,19 +52,19 @@
         <h2 class="section-title">Búsqueda</h2>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('searchteacher2') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-person-lines-fill icon-large"></i>
                     Buscar por Profesor
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-assignament2') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-journal-text icon-large"></i>
                     Buscar por Materia
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-group2') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-people-fill icon-large"></i>
                     Buscar por Grupo
                 </a>

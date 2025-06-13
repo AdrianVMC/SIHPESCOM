@@ -41,17 +41,17 @@
     <h2 class="mb-5">Búsqueda</h2>
 
     <div class="w-100" style="max-width: 600px;">
-        <a href="#" class="btn btn-primary w-100 mb-4 search-button">
+        <a href="{{ route('searchteacher') }}" class="btn btn-primary w-100 mb-4 search-button">
             <i class="bi bi-person-lines-fill d-block mb-2 icon-large"></i>
             Buscar por Profesor
         </a>
 
-        <a href="#" class="btn btn-primary w-100 mb-4 search-button">
+        <a href="{{ route('search-assignament') }}" class="btn btn-primary w-100 mb-4 search-button">
             <i class="bi bi-journal-text d-block mb-2 icon-large"></i>
             Buscar por Materia
         </a>
 
-        <a href="#" class="btn btn-primary w-100 search-button">
+        <a href="{{ route('search-group') }}" class="btn btn-primary w-100 search-button">
             <i class="bi bi-people-fill d-block mb-2 icon-large"></i>
             Buscar por Grupo
         </a>
