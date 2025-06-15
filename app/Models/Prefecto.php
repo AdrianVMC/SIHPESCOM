@@ -5,27 +5,27 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Alumno extends Authenticatable
+class Prefecto extends Authenticatable
 {
+
     use Notifiable;
-    protected $table = 'alumno';
-    protected $primaryKey = 'boleta';
-    protected $keyType = 'int';
+    protected $table = 'prefecto';
+    protected $primaryKey = 'no_trabajador';
     public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = false;
     protected $fillable = [
-        'boleta',
         'nombre',
         'primer_apellido',
         'segundo_apellido',
-        'contrasena',
         'correo',
-        'fecha_registro',
+        'contrasena',
     ];
 
     protected $hidden = [
         'contrasena',
     ];
+
     public function getAuthPassword()
     {
         return $this->contrasena;
@@ -33,6 +33,9 @@ class Alumno extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'boleta';
+        return 'no_trabajador';
     }
+    protected $casts = [
+        'fecha_registro' => 'datetime',
+    ];
 }

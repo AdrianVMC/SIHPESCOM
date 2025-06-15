@@ -36,16 +36,20 @@ return [
     */
 
     'guards' => [
-        // guard por defecto
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
 
-        // tu nuevo guard
         'alumno' => [
             'driver' => 'session',
             'provider' => 'alumnos',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -76,6 +80,11 @@ return [
         'alumnos' => [
             'driver' => 'eloquent',
             'model' => App\Models\Alumno::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Prefecto::class,
         ],
 
         // 'users' => [

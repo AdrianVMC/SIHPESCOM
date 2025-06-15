@@ -21,7 +21,7 @@
 
         <h4 class="text-center mb-4 mt-2">Inicio de sesión - Alumno</h4>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('loginAlu') }}">
             @csrf
 
             <div class="mb-3">

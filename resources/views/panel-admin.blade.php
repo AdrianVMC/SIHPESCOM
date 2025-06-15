@@ -38,9 +38,14 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex justify-content-between align-items-center">
         <a href="{{ route('panel-admin') }}" class="navbar-brand">SIHP - Admin</a>
-        <a href="{{ route('main') }}" class="btn btn-outline-light">
-            <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
-        </a>
+        @auth
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="btn btn-outline-light d-flex align-items-center">
+                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                </button>
+            </form>
+        @endauth
     </div>
 </nav>
 

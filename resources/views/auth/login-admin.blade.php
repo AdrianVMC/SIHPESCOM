@@ -61,10 +61,11 @@
 
         <h3 class="text-center mb-4 mt-4 text-white">Inicio de sesión - Administrador</h3>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('loginAdmin') }}">
+            @csrf
             <div class="mb-3">
                 <label for="admin_id" class="form-label">ID de trabajador</label>
-                <input type="text" name="admin_id" class="form-control" id="admin_id" required>
+                <input type="text" name="no_trabajador" class="form-control" id="admin_id" required>
             </div>
 
             <div class="mb-3">
@@ -81,7 +82,7 @@
             @if ($errors->any())
                 <ul class="px-4 py-2 bg-red-100">
                     @foreach ($errors->all() as $error)
-                        <li class="my-2 text-red-500">{{ $error }}</li>
+                        <li class="accent-red-600">{{ $error }}</li>
                     @endforeach
                 </ul>
             @endif
