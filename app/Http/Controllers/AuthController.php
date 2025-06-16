@@ -44,7 +44,7 @@ class AuthController extends Controller
         Auth::guard('admin')->login($admin);
         $request->session()->regenerate();
 
-        return redirect()->intended('panel-admin'); // Redirigir a panel específico del admin
+        return redirect()->intended('panel-admin');
     }
 
     public function loginAlu(Request $request)

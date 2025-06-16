@@ -36,3 +36,11 @@ Route::middleware('auth:admin')->group(function () {
 
 //Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//Catch-all login route
+Route::get('/login', function () {
+    if (request()->is('admin*') || request()->is('panel-admin*') || request()->is('login-admin*')) {
+        return redirect()->route('show.login-admin');
+    }
+    return redirect()->route('main');
+})->name('login');
