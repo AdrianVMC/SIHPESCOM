@@ -56,6 +56,7 @@
         </a>
 
         <a href="{{ route('search-subject-alu') }}" class="btn btn-primary w-100 mb-4 search-button">
+
             <i class="bi bi-journal-text d-block mb-2 icon-large"></i>
             Buscar por Materia
         </a>
