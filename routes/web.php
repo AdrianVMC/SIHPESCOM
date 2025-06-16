@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfesorController;
 
 
 //Main page
@@ -23,6 +24,10 @@ Route::middleware('auth:alumno')->group(function () {
     Route::get('/search-teacher-alu', function () { return view('student.search-teacher-alu');})->name('search-teacher-alu');
 });
 
+Route::get('/buscar-profesor/{id}', [ProfesorController::class, 'mostrar']);
+//Para buscar por materia
+Route::get('/buscar-por-materia', [ProfesorController::class, 'vistaPorMateria']);
+Route::get('/materia/{id}/profesores', [ProfesorController::class, 'profesoresPorMateria']);
 
 //Login administrator
 Route::get('/login-admin', [AuthController::class, 'showLoginAdmin'])->name('show.login-admin');
