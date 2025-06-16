@@ -38,9 +38,14 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex justify-content-between align-items-center">
         <a href="{{ route('panel-admin') }}" class="navbar-brand">SIHP - Admin</a>
-        <a href="{{ route('main') }}" class="btn btn-outline-light">
-            <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
-        </a>
+        @auth
+            <form action="{{ route('logout') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="btn btn-outline-light d-flex align-items-center">
+                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                </button>
+            </form>
+        @endauth
     </div>
 </nav>
 
@@ -52,19 +57,19 @@
         <h2 class="section-title">Búsqueda</h2>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
-                <a href="{{ route('searchteacher2') }}" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-teacher-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-person-lines-fill icon-large"></i>
                     Buscar por Profesor
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="{{ route('search-assignament2') }}" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-subject-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-journal-text icon-large"></i>
                     Buscar por Materia
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="{{ route('search-group2') }}" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-group-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-people-fill icon-large"></i>
                     Buscar por Grupo
                 </a>
