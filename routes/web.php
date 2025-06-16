@@ -18,7 +18,9 @@ Route::post('/login-alu', [AuthController::class, 'loginAlu'])->name('loginAlu')
 //Protected Routes student
 Route::middleware('auth:alumno')->group(function () {
     Route::get('/panel-alu', function () { return view('panel-alu');})->name('panel-alu');
-
+    Route::get('/search-subject-alu', function () { return view('student.search-subject-alu');})->name('search-subject-alu');
+    Route::get('/search-group-alu',  function () { return view('student.search-group-alu');})->name('search-group-alu');
+    Route::get('/search-teacher-alu', function () { return view('student.search-teacher-alu');})->name('search-teacher-alu');
 });
 
 
@@ -30,6 +32,9 @@ Route::post('/login-admin', [AuthController::class, 'loginAdmin'])->name('loginA
 //Protected Routes supervisor
 Route::middleware('auth:admin')->group(function () {
     Route::get('/panel-admin', function () { return view('panel-admin');})->name('panel-admin');
+    Route::get('/search-subject-admin', function () { return view('admin.search-subject-admin');})->name('search-subject-admin');
+    Route::get('/search-teacher-admin', function () { return view('admin.search-teacher-admin');})->name('search-teacher-admin');
+    Route::get('/search-group-admin', function () { return view('admin.search-group-admin');})->name('search-group-admin');
 });
 
 

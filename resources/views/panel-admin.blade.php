@@ -57,19 +57,19 @@
         <h2 class="section-title">Búsqueda</h2>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-teacher-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-person-lines-fill icon-large"></i>
                     Buscar por Profesor
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-subject-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-journal-text icon-large"></i>
                     Buscar por Materia
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('search-group-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-people-fill icon-large"></i>
                     Buscar por Grupo
                 </a>
