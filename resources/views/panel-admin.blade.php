@@ -77,19 +77,19 @@
         <h2 class="section-title">Gestión</h2>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('registerteacher') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-person-plus-fill icon-large"></i>
                     Registrar Profesor
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('registerschedule') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-calendar-event icon-large"></i>
                     Registrar Horario
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('registergroup') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-building icon-large"></i>
                     Registrar Grupo
                 </a>

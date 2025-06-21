@@ -48,3 +48,15 @@ Route::get('/search-group', function () {
 Route::get('/search-group2', function () {
     return view('search-group2');
 })->name('search-group2');
+
+Route::get('/registerteacher', function () {
+    return view('registerteacher');
+})->name('registerteacher');
+
+Route::get('/registerschedule', function () {
+    return view('registerschedule');
+})->name('registerschedule');
+
+Route::get('/registergroup', function () {
+    return view('registergroup');
+})->name('registergroup');
