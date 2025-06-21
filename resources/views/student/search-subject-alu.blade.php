@@ -19,17 +19,17 @@
             width: 100%;
         }
         .form-label {
-            color: #0d3b66;
+            color: black;
             font-weight: 600;
         }
         .form-control,
         .form-control:focus {
-            border: 1.5px solid #0d3b66;
+            border: 1.5px solid grey;
             box-shadow: none;
         }
         .btn-primary {
-            background-color: #124574;
-            border-color: #0d3b66;
+            background-color: #1677ff;
+            border-color: #1677ff;
             font-weight: 600;
         }
         .btn-primary:hover {
@@ -54,7 +54,7 @@
 <div class="form-box text-center">
     <h4 class="mb-4">Buscar por Materia</h4>
 
-    <form action="{{ route('search-assignament') }}" method="GET">
+    <form action="{{ route('main') }}" method="GET">
         <div class="mb-3 text-start">
             <label for="materia" class="form-label">Nombre o clave de la materia</label>
             <input type="text" id="materia" name="materia" class="form-control" required />
@@ -67,4 +67,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

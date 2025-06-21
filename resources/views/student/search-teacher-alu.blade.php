@@ -33,7 +33,7 @@
 <div class="form-box text-center">
     <h4 class="mb-4">Buscar por Profesor</h4>
 
-    <form action="{{ route('searchteacher') }}" method="GET">
+    <form action="{{ route('search-teacher-alu') }}" method="GET">
         <div class="mb-3 text-start">
             <label for="nombre" class="form-label">Nombre del profesor</label>
             <input type="text" id="nombre" name="nombre" class="form-control" required>
