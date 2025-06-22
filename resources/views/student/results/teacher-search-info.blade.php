@@ -22,38 +22,44 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h4 class="card-title mb-3">
-                Horario de {{ $docente->nombre }} {{ $docente->primer_apellido }} {{ $docente->segundo_apellido }}
+            <h4 class="card-title mb-4">
+                Horario semanal de {{ $docente->nombre }} {{ $docente->primer_apellido }} {{ $docente->segundo_apellido }}
             </h4>
 
-            <p class="mb-2"><strong>Día actual:</strong> {{ ucfirst($dia) }}</p>
-
+            <!-- Clases -->
             @if (count($horarios))
                 <h5 class="mb-3">Clases programadas:</h5>
-                <ul class="list-group mb-4">
-                    @foreach ($horarios as $h)
-                        <li class="list-group-item">
-                            {{ $h['hora_inicio'] }} - {{ $h['hora_fin'] }} |
-                            {{ $h['materia'] }} |
-                            Aula {{ $h['aula'] }} ({{ $h['edificio'] }})
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach ($horarios as $dia => $clases)
+                    <h6 class="text-primary">{{ $dia }}</h6>
+                    <ul class="list-group mb-3">
+                        @foreach ($clases as $h)
+                            <li class="list-group-item">
+                                {{ $h['hora_inicio'] }} - {{ $h['hora_fin'] }} |
+                                {{ $h['materia'] }} |
+                                Aula {{ $h['aula'] }} ({{ $h['edificio'] }})
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
             @else
-                <p class="text-muted mb-2">No tiene clases programadas para hoy.</p>
+                <p class="text-muted mb-2">No tiene clases programadas esta semana.</p>
             @endif
 
+            <!-- Cubículos -->
             @if (count($cubiculos))
-                <h5 class="mb-3">Cubículo disponible:</h5>
-                <ul class="list-group">
-                    @foreach ($cubiculos as $c)
-                        <li class="list-group-item">
-                            {{ $c['hora_inicio'] }} - {{ $c['hora_fin'] }} en cubículo {{ $c['nombre_cubiculo'] }}
-                        </li>
-                    @endforeach
-                </ul>
+                <h5 class="mt-4 mb-3">Cubículos disponibles:</h5>
+                @foreach ($cubiculos as $dia => $cbs)
+                    <h6 class="text-success">{{ $dia }}</h6>
+                    <ul class="list-group mb-3">
+                        @foreach ($cbs as $c)
+                            <li class="list-group-item">
+                                {{ $c['hora_inicio'] }} - {{ $c['hora_fin'] }} en cubículo {{ $c['nombre_cubiculo'] }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
             @else
-                <p class="text-muted mb-2">Sin horario de cubículo hoy.</p>
+                <p class="text-muted">No tiene horarios de cubículo esta semana.</p>
             @endif
         </div>
     </div>

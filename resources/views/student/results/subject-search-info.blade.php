@@ -21,27 +21,28 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <h4 class="card-title mb-3">
+            <h4 class="card-title mb-4">
                 Resultados para: <strong>{{ $nombre_materia }}</strong>
             </h4>
 
-            <p><strong>Día actual:</strong> {{ ucfirst($dia) }}</p>
-
             @if (count($resultados))
-                <ul class="list-group">
-                    @foreach ($resultados as $r)
-                        <li class="list-group-item">
-                            <strong>{{ $r['materia'] }}</strong><br>
-                            <span class="text-muted">Grupo:</span> {{ $r['grupo'] }}<br>
-                            <span class="text-muted">Horario:</span> {{ $r['hora_inicio'] }} - {{ $r['hora_fin'] }}<br>
-                            <span class="text-muted">Ubicación:</span> Aula {{ $r['aula'] }} ({{ $r['edificio'] }})<br>
-                            <span class="text-muted">Profesor:</span> {{ $r['profesor'] }}
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach ($resultados as $dia => $clases)
+                    <h5 class="text-primary">{{ $dia }}</h5>
+                    <ul class="list-group mb-4">
+                        @foreach ($clases as $r)
+                            <li class="list-group-item">
+                                <strong>{{ $r['materia'] }}</strong><br>
+                                <span class="text-muted">Grupo:</span> {{ $r['grupo'] }}<br>
+                                <span class="text-muted">Horario:</span> {{ $r['hora_inicio'] }} - {{ $r['hora_fin'] }}<br>
+                                <span class="text-muted">Ubicación:</span> Aula {{ $r['aula'] }} ({{ $r['edificio'] }})<br>
+                                <span class="text-muted">Profesor:</span> {{ $r['profesor'] }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
             @else
                 <div class="alert alert-warning mt-3">
-                    No se encontraron clases de esta materia para hoy.
+                    No se encontraron clases para esta materia durante la semana.
                 </div>
             @endif
         </div>

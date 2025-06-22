@@ -23,7 +23,7 @@ class SearchController extends Controller
         ];
 
         $carbon = app()->environment('local')
-            ? Carbon::createFromFormat('Y-m-d', '2025-06-23') // Lunes fijo
+            ? Carbon::createFromFormat('Y-m-d', '2025-06-23') // Día fijo para pruebas locales
             : Carbon::now();
 
         $diaIngles = strtolower($carbon->englishDayOfWeek);
@@ -72,9 +72,8 @@ class SearchController extends Controller
     {
         $nombre = $request->get('nombre');
         $apellidos = $request->get('apellidos');
-        $dia = $this->getDiaActual();
 
-        $docente = Docente::with(['grupos.horarios.aula', 'cubiculo'])
+        $docente = Docente::with(['grupos.horarios.aula', 'grupos.materia', 'cubiculo'])
             ->where('nombre', 'like', "%$nombre%")
             ->whereRaw("CONCAT_WS(' ', primer_apellido, segundo_apellido) LIKE ?", ["%$apellidos%"])
             ->first();
@@ -83,45 +82,64 @@ class SearchController extends Controller
             return back()->with('error', 'Profesor no encontrado');
         }
 
+        $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
         $horarios = [];
+
         foreach ($docente->grupos as $grupo) {
             foreach ($grupo->horarios as $h) {
-                if ($h->dia_semana === $dia) {
-                    $horarios[] = [
-                        'materia' => $grupo->materia->nombre_materia,
+                $dia = $h->dia_semana;
+                if (in_array($dia, $diasSemana)) {
+                    $horarios[$dia][] = [
+                        'materia' => $grupo->materia->nombre_materia ?? 'Sin materia',
                         'hora_inicio' => $h->hora_inicio,
                         'hora_fin' => $h->hora_fin,
-                        'aula' => $h->aula->nombre_aula,
-                        'edificio' => $h->aula->edificio,
+                        'aula' => $h->aula->nombre_aula ?? 'Sin aula',
+                        'edificio' => $h->aula->edificio ?? 'Sin edificio',
                     ];
                 }
             }
         }
 
-        $cubiculos = $docente->cubiculo
-            ->where('dia_semana', $dia)
-            ->map(fn($cub) => [
-                'hora_inicio' => $cub->hora_inicio,
-                'hora_fin' => $cub->hora_fin,
-                'nombre_cubiculo' => $cub->nombre_cubiculo,
-            ])->toArray();
+        $cubiculos = [];
+        foreach ($docente->cubiculo as $cub) {
+            $dia = $cub->dia_semana;
+            if (in_array($dia, $diasSemana)) {
+                $cubiculos[$dia][] = [
+                    'hora_inicio' => $cub->hora_inicio,
+                    'hora_fin' => $cub->hora_fin,
+                    'nombre_cubiculo' => $cub->nombre_cubiculo ?? 'Sin cubículo',
+                ];
+            }
+        }
+
+        $horariosOrdenados = [];
+        $cubiculosOrdenados = [];
+
+        foreach ($diasSemana as $dia) {
+            if (isset($horarios[$dia])) {
+                $horariosOrdenados[$dia] = $horarios[$dia];
+            }
+            if (isset($cubiculos[$dia])) {
+                $cubiculosOrdenados[$dia] = $cubiculos[$dia];
+            }
+        }
 
         return view('student.results.teacher-search-info', [
             'docente' => $docente,
-            'horarios' => $horarios,
-            'cubiculos' => $cubiculos,
-            'dia' => $dia
+            'horarios' => $horariosOrdenados,
+            'cubiculos' => $cubiculosOrdenados
         ]);
     }
 
     public function showSearchSubject(Request $request)
     {
-        $nombreMateria = $request->get('nombre_materia');
-        $dia = $this->getDiaActual();
+        $busqueda = $request->get('materia'); // El name del input en el form
+
+        $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
         $grupos = Grupo::with(['horarios.aula', 'docente', 'materia'])
-            ->whereHas('materia', function ($query) use ($nombreMateria) {
-                $query->where('nombre_materia', 'like', "%$nombreMateria%");
+            ->whereHas('materia', function ($query) use ($busqueda) {
+                $query->where('nombre_materia', 'like', "%$busqueda%");
             })
             ->get();
 
@@ -129,8 +147,9 @@ class SearchController extends Controller
 
         foreach ($grupos as $grupo) {
             foreach ($grupo->horarios as $horario) {
-                if ($horario->dia_semana === $dia) {
-                    $resultados[] = [
+                $dia = $horario->dia_semana;
+                if (in_array($dia, $diasSemana)) {
+                    $resultados[$dia][] = [
                         'materia' => $grupo->materia->nombre_materia,
                         'grupo' => $grupo->grupo,
                         'hora_inicio' => $horario->hora_inicio,
@@ -143,10 +162,16 @@ class SearchController extends Controller
             }
         }
 
+        $resultadosOrdenados = [];
+        foreach ($diasSemana as $dia) {
+            if (isset($resultados[$dia])) {
+                $resultadosOrdenados[$dia] = $resultados[$dia];
+            }
+        }
+
         return view('student.results.subject-search-info', [
-            'resultados' => $resultados,
-            'dia' => $dia,
-            'nombre_materia' => $nombreMateria
+            'resultados' => $resultadosOrdenados,
+            'nombre_materia' => $busqueda
         ]);
     }
 
