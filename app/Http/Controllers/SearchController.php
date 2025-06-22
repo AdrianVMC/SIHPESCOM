@@ -10,6 +10,26 @@ use Carbon\Carbon;
 
 class SearchController extends Controller
 {
+    private function getDiaActual(): string
+    {
+        $diasCorrectos = [
+            'monday'    => 'Lunes',
+            'tuesday'   => 'Martes',
+            'wednesday' => 'Miércoles',
+            'thursday'  => 'Jueves',
+            'friday'    => 'Viernes',
+            'saturday'  => 'Sábado',
+            'sunday'    => 'Domingo',
+        ];
+
+        $carbon = app()->environment('local')
+            ? Carbon::createFromFormat('Y-m-d', '2025-06-23') // Lunes fijo
+            : Carbon::now();
+
+        $diaIngles = strtolower($carbon->englishDayOfWeek);
+        return $diasCorrectos[$diaIngles] ?? 'Lunes';
+    }
+
     public function show($id)
     {
         $teacher = Docente::with([
@@ -52,8 +72,7 @@ class SearchController extends Controller
     {
         $nombre = $request->get('nombre');
         $apellidos = $request->get('apellidos');
-
-        $dia = strtolower(Carbon::now()->locale('es')->isoFormat('dddd'));
+        $dia = $this->getDiaActual();
 
         $docente = Docente::with(['grupos.horarios.aula', 'cubiculo'])
             ->where('nombre', 'like', "%$nombre%")
@@ -98,7 +117,7 @@ class SearchController extends Controller
     public function showSearchSubject(Request $request)
     {
         $nombreMateria = $request->get('nombre_materia');
-        $dia = strtolower(Carbon::now()->locale('es')->isoFormat('dddd'));
+        $dia = $this->getDiaActual();
 
         $grupos = Grupo::with(['horarios.aula', 'docente', 'materia'])
             ->whereHas('materia', function ($query) use ($nombreMateria) {
@@ -135,12 +154,11 @@ class SearchController extends Controller
     {
         $grupoNombre = strtoupper(trim($request->get('grupo')));
 
-        // Validación del patrón: 1 dígito + 1 o 2 letras + 1 dígito
         if (!preg_match('/^\d[A-Z]{2}\d$/', $grupoNombre)) {
             return back()->with('error', 'El formato del grupo no es válido. Usa el formato como 3CV1 o 6CM7.');
         }
 
-        $dia = strtolower(Carbon::now()->locale('es')->isoFormat('dddd'));
+        $dia = $this->getDiaActual();
 
         $grupos = Grupo::with(['materia', 'horarios.aula', 'docente'])
             ->where('grupo', $grupoNombre)

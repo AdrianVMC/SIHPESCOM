@@ -25,20 +25,22 @@
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
         }
-        .btn-back {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-        }
     </style>
 </head>
 <body>
-<a href="{{ route('panel-alu') }}" class="btn btn-outline-secondary btn-back">
-    <i class="bi bi-arrow-left"></i> Regresar
-</a>
 
 <div class="container">
-    <h3 class="text-center mb-4">Horario del grupo {{ $grupo }} - {{ ucfirst($dia) }}</h3>
+    <!-- Botones de navegación -->
+    <div class="d-flex justify-content-start gap-2 mb-4">
+        <a href="{{ route('form-search-group-alu') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-search"></i> Nueva búsqueda
+        </a>
+        <a href="{{ route('panel-alu') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Regresar
+        </a>
+    </div>
+
+    <h3 class="mb-3">Horario del grupo {{ $grupo }} - {{ ucfirst($dia) }}</h3>
 
     @if (count($resultados) === 0)
         <div class="alert alert-warning text-center">
@@ -49,9 +51,9 @@
             <div class="card mb-3">
                 <div class="card-header">{{ $resultado['materia'] }}</div>
                 <div class="card-body">
-                    <p><strong>Horario:</strong> {{ $resultado['hora_inicio'] }} - {{ $resultado['hora_fin'] }}</p>
-                    <p><strong>Aula:</strong> {{ $resultado['aula'] }} - {{ $resultado['edificio'] }}</p>
-                    <p><strong>Profesor:</strong> {{ $resultado['profesor'] }}</p>
+                    <p class="mb-2"><strong>Horario:</strong> {{ $resultado['hora_inicio'] }} - {{ $resultado['hora_fin'] }}</p>
+                    <p class="mb-2"><strong>Aula:</strong> {{ $resultado['aula'] }} - {{ $resultado['edificio'] }}</p>
+                    <p class="mb-2"><strong>Profesor:</strong> {{ $resultado['profesor'] }}</p>
                 </div>
             </div>
         @endforeach

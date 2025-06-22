@@ -9,9 +9,15 @@
 <body class="bg-light py-4">
 
 <div class="container">
-    <a href="{{ route('form-search-subject-alu') }}" class="btn btn-outline-secondary mb-3">
-        <i class="bi bi-arrow-left"></i> Nueva búsqueda
-    </a>
+    <!-- Botones de navegación alineados con espacio -->
+    <div class="d-flex gap-2 mb-3">
+        <a href="{{ route('form-search-subject-alu') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-search"></i> Nueva búsqueda
+        </a>
+        <a href="{{ route('panel-alu') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Regresar
+        </a>
+    </div>
 
     <div class="card shadow">
         <div class="card-body">

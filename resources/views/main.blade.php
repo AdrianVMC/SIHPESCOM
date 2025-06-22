@@ -20,6 +20,7 @@
             <div class="d-grid gap-3 mb-4">
                 <a href="{{ route('show.login-alu') }}" class="btn btn-primary btn-lg">Iniciar sesión como Alumno</a>
                 <a href="{{ route('show.login-admin') }}" class="btn btn-secondary btn-lg">Iniciar sesión como Administrador</a>
+                <a href="{{ route('panel-alu') }}" class="btn btn-primary btn">Visitar Panel de Búsqueda</a>
             </div>
 
             <p class="text-body-secondary">&copy; {{ date('Y') }} SIHP - ESCOM</p>
