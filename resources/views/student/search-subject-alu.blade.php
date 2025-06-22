@@ -54,7 +54,7 @@
 <div class="form-box text-center">
     <h4 class="mb-4">Buscar por Materia</h4>
 
-    <form action="{{ route('main') }}" method="GET">
+    <form action="{{ route('search-subject-alu') }}" method="GET">
         <div class="mb-3 text-start">
             <label for="materia" class="form-label">Nombre o clave de la materia</label>
             <input type="text" id="materia" name="materia" class="form-control" required />

@@ -50,18 +50,18 @@
     <h2 class="mb-5">Búsqueda</h2>
 
     <div class="w-100" style="max-width: 600px;">
-        <a href="{{ route('search-teacher-alu') }}" class="btn btn-primary w-100 mb-4 search-button">
+        <a href="{{ route('form-search-teacher-alu') }}" class="btn btn-primary w-100 mb-4 search-button">
             <i class="bi bi-person-lines-fill d-block mb-2 icon-large"></i>
             Buscar por Profesor
         </a>
 
-        <a href="{{ route('search-subject-alu') }}" class="btn btn-primary w-100 mb-4 search-button">
+        <a href="{{ route('form-search-subject-alu') }}" class="btn btn-primary w-100 mb-4 search-button">
 
             <i class="bi bi-journal-text d-block mb-2 icon-large"></i>
             Buscar por Materia
         </a>
 
-        <a href="{{ route('search-group-alu') }}" class="btn btn-primary w-100 search-button">
+        <a href="{{ route('form-search-group-alu') }}" class="btn btn-primary w-100 search-button">
             <i class="bi bi-people-fill d-block mb-2 icon-large"></i>
             Buscar por Grupo
         </a>
