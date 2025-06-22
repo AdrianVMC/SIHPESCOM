@@ -3,23 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class AlumnoSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
         DB::table('alumno')->insert([
-<<<<<<< Updated upstream
-            'boleta' => 2024630192,
-            'nombre' => 'Daniela',
-            'primer_apellido' => 'Martínez',
-            'segundo_apellido' => 'López',
-            'contrasena' => Hash::make('daniela321'), // Contraseña segura
-            'correo' => 'daniela@example.com',
-            'fecha_registro' => now(),
-=======
             ['nombre' => 'Carlos Adrián', 'primer_apellido' => 'Vázquez', 'segundo_apellido' => 'Montero', 'correo' => 'cadrian@alumno.ipn.mx', 'contrasena' => bcrypt('password123'), 'fecha_registro' => now()],
             ['nombre' => 'David Alexis', 'primer_apellido' => 'Hernández', 'segundo_apellido' => 'Gonzalez', 'correo' => 'dalexis@alumno.ipn.mx', 'contrasena' => bcrypt('password123'), 'fecha_registro' => now()],
             ['nombre' => 'José Carlos', 'primer_apellido' => 'Hernández', 'segundo_apellido' => 'Pérez', 'correo' => 'jcarlos@alumno.ipn.mx', 'contrasena' => bcrypt('password123'), 'fecha_registro' => now()],
@@ -30,8 +20,6 @@ class AlumnoSeeder extends Seeder
             ['nombre' => 'Rocio', 'primer_apellido' => 'Hernandez', 'segundo_apellido' => 'Martinez', 'correo' => 'rocio@alumno.ipn.mx', 'contrasena' => bcrypt('password123'), 'fecha_registro' => now()],
             ['nombre' => 'Mitzi Aquetzali', 'primer_apellido' => 'Herrera', 'segundo_apellido' => 'Vazquez', 'correo' => 'mitzi@alumno.ipn.mx', 'contrasena' => bcrypt('password123'), 'fecha_registro' => now()],
             ['nombre' => 'Nuria Adilene', 'primer_apellido' => 'Jonguitud', 'segundo_apellido' => 'Gonzalez', 'correo' => 'nuria@alumno.ipn.mx', 'contrasena' => bcrypt('password123'), 'fecha_registro' => now()],
-            // Agrega aquí el resto de tus alumnos con la misma estructura...
->>>>>>> Stashed changes
         ]);
     }
 }

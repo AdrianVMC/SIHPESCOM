@@ -21,11 +21,6 @@ Route::middleware('auth:alumno')->group(function () {
     Route::get('/search-group-alu', [SearchController::class, 'showSearchGroup'])->name('search-group-alu');
 });
 
-<<<<<<< Updated upstream
-
-//Login administrator
-=======
->>>>>>> Stashed changes
 Route::get('/login-admin', [AuthController::class, 'showLoginAdmin'])->name('show.login-admin');
 Route::post('/login-admin', [AuthController::class, 'loginAdmin'])->name('loginAdmin');
 
