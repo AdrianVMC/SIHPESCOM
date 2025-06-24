@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Docente;
 use App\Models\Grupo;
-use App\Models\Materia;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -13,62 +12,53 @@ class SearchController extends Controller
     private function getDiaActual(): string
     {
         $diasCorrectos = [
-            'monday'    => 'Lunes',
-            'tuesday'   => 'Martes',
+            'monday' => 'Lunes',
+            'tuesday' => 'Martes',
             'wednesday' => 'Miércoles',
-            'thursday'  => 'Jueves',
-            'friday'    => 'Viernes',
-            'saturday'  => 'Sábado',
-            'sunday'    => 'Domingo',
+            'thursday' => 'Jueves',
+            'friday' => 'Viernes',
+            'saturday' => 'Sábado',
+            'sunday' => 'Domingo',
         ];
 
         $carbon = app()->environment('local')
-            ? Carbon::createFromFormat('Y-m-d', '2025-06-23') // Día fijo para pruebas locales
+            ? Carbon::createFromFormat('Y-m-d', '2025-06-23')
             : Carbon::now();
 
-        $diaIngles = strtolower($carbon->englishDayOfWeek);
-        return $diasCorrectos[$diaIngles] ?? 'Lunes';
-    }
-
-    public function show($id)
-    {
-        $teacher = Docente::with([
-            'grupos.materia',
-            'grupos.horarios.aula',
-            'cubiculo'
-        ])->findOrFail($id);
-
-        $classSchedules = [];
-
-        foreach ($teacher->grupos as $group) {
-            foreach ($group->horarios as $schedule) {
-                $classSchedules[] = [
-                    'subject' => $group->materia->nombre_materia,
-                    'day' => $schedule->dia_semana,
-                    'start_time' => $schedule->hora_inicio,
-                    'end_time' => $schedule->hora_fin,
-                    'classroom' => $schedule->aula->nombre_aula,
-                    'group' => $group->grupo,
-                    'building' => $schedule->aula->edificio
-                ];
-            }
-        }
-
-        return response()->json([
-            'full_name' => "{$teacher->nombre} {$teacher->primer_apellido} {$teacher->segundo_apellido}",
-            'class_schedules' => $classSchedules,
-            'office_hours' => $teacher->cubiculo->map(function ($office) {
-                return [
-                    'day' => $office->dia_semana,
-                    'start_time' => $office->hora_inicio,
-                    'end_time' => $office->hora_fin,
-                    'office_name' => $office->nombre_cubiculo
-                ];
-            })
-        ]);
+        return $diasCorrectos[strtolower($carbon->englishDayOfWeek)] ?? 'Lunes';
     }
 
     public function showSearchTeacher(Request $request)
+    {
+        return $this->buildTeacherView($request, 'student.results.teacher-search-info');
+    }
+
+    public function showSearchTeacherAdmin(Request $request)
+    {
+        return $this->buildTeacherView($request, 'admin.results.teacher-search-info-admin');
+    }
+
+    public function showSearchSubject(Request $request)
+    {
+        return $this->buildSubjectView($request, 'student.results.subject-search-info');
+    }
+
+    public function showSearchSubjectAdmin(Request $request)
+    {
+        return $this->buildSubjectView($request, 'admin.results.subject-search-info-admin');
+    }
+
+    public function showSearchGroup(Request $request)
+    {
+        return $this->buildGroupView($request, 'student.results.group-search-info');
+    }
+
+    public function showSearchGroupAdmin(Request $request)
+    {
+        return $this->buildGroupView($request, 'admin.results.group-search-info-admin');
+    }
+
+    private function buildTeacherView(Request $request, string $view)
     {
         $nombre = $request->get('nombre');
         $apellidos = $request->get('apellidos');
@@ -84,6 +74,7 @@ class SearchController extends Controller
 
         $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
         $horarios = [];
+        $cubiculos = [];
 
         foreach ($docente->grupos as $grupo) {
             foreach ($grupo->horarios as $h) {
@@ -100,7 +91,6 @@ class SearchController extends Controller
             }
         }
 
-        $cubiculos = [];
         foreach ($docente->cubiculo as $cub) {
             $dia = $cub->dia_semana;
             if (in_array($dia, $diasSemana)) {
@@ -124,17 +114,16 @@ class SearchController extends Controller
             }
         }
 
-        return view('student.results.teacher-search-info', [
+        return view($view, [
             'docente' => $docente,
             'horarios' => $horariosOrdenados,
             'cubiculos' => $cubiculosOrdenados
         ]);
     }
 
-    public function showSearchSubject(Request $request)
+    private function buildSubjectView(Request $request, string $view)
     {
-        $busqueda = $request->get('materia'); // El name del input en el form
-
+        $busqueda = $request->get('materia');
         $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
         $grupos = Grupo::with(['horarios.aula', 'docente', 'materia'])
@@ -162,20 +151,20 @@ class SearchController extends Controller
             }
         }
 
-        $resultadosOrdenados = [];
+        $ordenado = [];
         foreach ($diasSemana as $dia) {
             if (isset($resultados[$dia])) {
-                $resultadosOrdenados[$dia] = $resultados[$dia];
+                $ordenado[$dia] = $resultados[$dia];
             }
         }
 
-        return view('student.results.subject-search-info', [
-            'resultados' => $resultadosOrdenados,
+        return view($view, [
+            'resultados' => $ordenado,
             'nombre_materia' => $busqueda
         ]);
     }
 
-    public function showSearchGroup(Request $request)
+    private function buildGroupView(Request $request, string $view)
     {
         $grupoNombre = strtoupper(trim($request->get('grupo')));
 
@@ -210,10 +199,26 @@ class SearchController extends Controller
             }
         }
 
-        return view('student.results.group-search-info', [
+        return view($view, [
             'resultados' => $resultados,
             'grupo' => $grupoNombre,
             'dia' => $dia
         ]);
+    }
+
+    public function redirectToTeacherPDF(Request $request)
+    {
+        $firstName = $request->get('nombre');
+        $lastName = $request->get('apellidos');
+
+        $teacher = Docente::where('nombre', 'like', "%$firstName%")
+            ->whereRaw("CONCAT_WS(' ', primer_apellido, segundo_apellido) LIKE ?", ["%$lastName%"])
+            ->first();
+
+        if (!$teacher) {
+            return back()->with('error', 'Profesor no encontrado.');
+        }
+
+        return redirect()->route('docente.pdf', ['id' => $teacher->id]);
     }
 }

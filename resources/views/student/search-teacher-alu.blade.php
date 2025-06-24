@@ -24,12 +24,10 @@
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center min-vh-100 position-relative">
 
-<!-- Botón de regreso -->
 <a href="{{ route('panel-alu') }}" class="btn btn-outline-secondary return-button">
     <i class="bi bi-arrow-left"></i> Regresar
 </a>
 
-<!-- Contenedor del formulario -->
 <div class="form-box text-center">
     <h4 class="mb-4">Buscar por Profesor</h4>
 

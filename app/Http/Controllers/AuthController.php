@@ -20,6 +20,11 @@ class AuthController extends Controller
         return view('auth.login-admin');
     }
 
+    public function showRegister()
+    {
+        return view('auth.register-alu');
+    }
+
     public function loginAdmin(Request $request)
     {
         $credentials = $request->validate([
@@ -73,6 +78,31 @@ class AuthController extends Controller
 
         return redirect()->intended('panel-alu');
     }
+
+    public function registerAlu(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'primer_apellido' => 'required|string|max:255',
+            'segundo_apellido' => 'required|string|max:255',
+            'correo' => 'required|email|unique:alumno,correo',
+            'contrasena' => 'required|string|min:5|confirmed',
+        ]);
+
+        $validated['contrasena'] = Hash::make($validated['contrasena']);
+
+        $boleta = Alumno::max('boleta') + 1;
+        $validated['boleta'] = $boleta;
+        $validated['fecha_registro'] = now();
+
+        $user = Alumno::create($validated);
+
+        session()->flash('boleta_generada', $boleta);
+        session()->flash('success', 'Alumno registrado correctamente.');
+
+        return redirect()->route('show.login-alu');
+    }
+
 
     public function logout(Request $request)
     {
