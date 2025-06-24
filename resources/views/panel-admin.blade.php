@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrador</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,11 +30,18 @@
             border-radius: 15px;
             margin-bottom: 3rem;
         }
+        .btn-primary {
+            background-color: #238636;
+            border-color: #2ea043;
+        }
+        .btn-primary:hover {
+            background-color: #2ea043;
+            border-color: #238636;
+        }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container d-flex justify-content-between align-items-center">
         <a href="{{ route('panel-admin') }}" class="navbar-brand">SIHP - Admin</a>
@@ -49,57 +56,31 @@
     </div>
 </nav>
 
-<!-- Contenido -->
 <div class="container py-5">
 
-    <!-- Sección de búsqueda -->
     <div class="card-section text-center">
         <h2 class="section-title">Búsqueda</h2>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
-                <a href="{{ route('search-teacher-admin') }}" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('form-search-teacher-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-person-lines-fill icon-large"></i>
                     Buscar por Profesor
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="{{ route('search-subject-admin') }}" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('form-search-subject-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-journal-text icon-large"></i>
                     Buscar por Materia
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="{{ route('search-group-admin') }}" class="btn btn-primary w-100 btn-custom">
+                <a href="{{ route('form-search-group-admin') }}" class="btn btn-primary w-100 btn-custom">
                     <i class="bi bi-people-fill icon-large"></i>
                     Buscar por Grupo
                 </a>
             </div>
         </div>
     </div>
-
-    <!-- Sección de gestión -->
-    <div class="card-section text-center">
-        <h2 class="section-title">Gestión</h2>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <a href="{{ route('registerteacher') }}" class="btn btn-primary w-100 btn-custom">
-                    <i class="bi bi-person-plus-fill icon-large"></i>
-                    Registrar Profesor
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ route('registerschedule') }}" class="btn btn-primary w-100 btn-custom">
-                    <i class="bi bi-calendar-event icon-large"></i>
-                    Registrar Horario
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{ route('registergroup') }}" class="btn btn-primary w-100 btn-custom">
-                    <i class="bi bi-building icon-large"></i>
-                    Registrar Grupo
-                </a>
-            </div>
-        </div>
     </div>
 
 </div>

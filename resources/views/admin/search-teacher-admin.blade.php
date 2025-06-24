@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buscar por Profesor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
             background-color: #0d1117;
             color: #f0f0f0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
         .form-box {
             background-color: #161b22;
@@ -36,32 +44,42 @@
             background-color: #2ea043;
             border-color: #238636;
         }
-        .btn-outline-light {
-            border-color: #30363d;
+        .btn-outline-secondary {
             color: #e6edf3;
+            border-color: #30363d;
         }
-        .btn-outline-light:hover {
+        .btn-outline-secondary:hover {
             background-color: #30363d;
+            border-color: #2ea043;
         }
         .return-button {
             position: absolute;
             top: 1rem;
             left: 1rem;
         }
+        .alert-danger {
+            background-color: #da3633;
+            border: none;
+            color: #fff;
+        }
     </style>
 </head>
-<body class="d-flex justify-content-center align-items-center min-vh-100 position-relative">
+<body>
 
-<!-- Botón de regreso -->
 <a href="{{ route('panel-admin') }}" class="btn btn-outline-secondary return-button">
     <i class="bi bi-arrow-left"></i> Regresar
 </a>
 
-<!-- Contenedor del formulario -->
 <div class="form-box text-center">
     <h4 class="mb-4">Buscar por Profesor</h4>
 
-    <form action="{{ route('main') }}" method="GET">
+    @if (session('error'))
+        <div class="alert alert-danger text-start">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <form action="{{ route('search-teacher-admin') }}" method="GET">
         <div class="mb-3 text-start">
             <label for="nombre" class="form-label">Nombre del profesor</label>
             <input type="text" id="nombre" name="nombre" class="form-control" required>

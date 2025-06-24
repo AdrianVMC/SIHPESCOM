@@ -2,9 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\DocenteSeeder;
+use Database\Seeders\MateriaSeeder;
+use Database\Seeders\AulaSeeder;
+use Database\Seeders\GruposSeeder;
+use Database\Seeders\HorariosSeeder;
+use Database\Seeders\CubiculoSeeder;
+use Database\Seeders\AlumnoSeeder;
+use Database\Seeders\PrefectoSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,10 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         $this->call([
+            DocenteSeeder::class,
+            MateriaSeeder::class,
+            AulaSeeder::class,
+            GruposSeeder::class,
+            HorariosSeeder::class,
+            CubiculoSeeder::class,
             AlumnoSeeder::class,
+            PrefectoSeeder::class,
         ]);
     }
 }
